@@ -46,6 +46,8 @@ public class Main {
         int counterForSentences = arrayFromSentences.length;
         return counterForSentences;
     }
+    //метод, който връща средният брой на думите в изречение.
+    //08.06.23
     public static double averageNumOfWordInSentences(int counterOfWords, int counterOfSentences){
         double averageNumOfWordInSentences = counterOfWords/counterOfSentences;
         return averageNumOfWordInSentences;
