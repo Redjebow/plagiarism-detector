@@ -1,3 +1,5 @@
+import java.util.HashSet;
+
 public class Main {
     //Метод, който принтира масив.
     public static void printArray(String[]stringArray){
@@ -41,7 +43,6 @@ public class Main {
     }
     //метод, който брои изреченията в даден текст.
     public static int countNumberOfSentences(String text){
-
         String[]arrayFromSentences =text.split("(?<!\\w\\.\\w.)(?<![A-Z][a-z]\\.)(?<=\\.|\\?|!)\\s");
         int counterForSentences = arrayFromSentences.length;
         return counterForSentences;
@@ -52,8 +53,41 @@ public class Main {
         double averageNumOfWordInSentences = counterOfWords/counterOfSentences;
         return averageNumOfWordInSentences;
     }
+    //метод който брои всички различни думи.
+    //11.06.23
+    public static int countAllDifferentWords (String[] text){
+        HashSet couterWord = new HashSet<>();
+        int counterForSize=0;
+        for (String elements:text) {
+            couterWord.add(elements);
+            counterForSize=couterWord.size();
+        }
+        return counterForSize;
+    }
+    //метод който брои думите, които се срещат само по веднъж.
+    //11.06.23
+    public static int countWordsThatOccurOnlyOnce(String[]text){
+        int counter = 0;
+        boolean checker = false;
+        //int index=1;
+        for (int i = 0; i < text.length; i++) {
+            for (int j = 0; j < text.length; j++) {
+                if(i==j){
+                    continue;
+                } else if (!text[i].equalsIgnoreCase(text[j])){
+                    checker = true;
+                }else{
+                    checker=false;break;
+                }
+            }
+            if(checker){
+                counter++;
+            }
+        }
+        return counter;
+    }
     public static void main(String[] args) {
-        String text1="Hello world! my name is redzheb redzhebov. i living the dark, dark is my home. Hello world! my name is redzheb redzhebov. i living the dark, dark is my home.";
+        String text1="dve edno This this repeat test repeat edno test edno";
         String[] text1Array = makeArrayWithoutEmptySpace(text1);
         int countWordsTxt1=countWordsInText(text1Array);
         System.out.println("Count words txt1: "+countWordsTxt1);
@@ -63,6 +97,10 @@ public class Main {
         System.out.println("counterSentencesTxt1: "+counterSentencesTxt1);
         double text1AverageNumOfWordInSentences = averageNumOfWordInSentences(countWordsTxt1, counterSentencesTxt1 );
         System.out.println("text1AverageNumOfWordInSentences: "+text1AverageNumOfWordInSentences);
+        int countAllDifferentWordsInFile = countAllDifferentWords(text1Array);
+        System.out.println("countAllDifferentWordsInFile: "+countAllDifferentWordsInFile);
+        int countWordsThatOccurOnlyOnce=countWordsThatOccurOnlyOnce(text1Array);
+        System.out.println("countWordsThatOccurOnlyOnce: "+countWordsThatOccurOnlyOnce);
 
 
         String text2="Hello world! my name is redzheb redzhebov. i living the dark, dark is my home";
@@ -75,8 +113,5 @@ public class Main {
         System.out.println("counterSentencesTxt2: "+counterSentencesTxt2);
         double text2AverageNumOfWordInSentences = averageNumOfWordInSentences(countWordsTxt2, counterSentencesTxt2 );
         System.out.println("text1AverageNumOfWordInSentences: "+text2AverageNumOfWordInSentences);
-
-
-
     }
 }
