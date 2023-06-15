@@ -115,23 +115,26 @@ public class Main {
         return makeStringFromFile.toString();
     }
 
+    public static void printResult(double AverageWodLength, int TypeTokenRatio, int HapaxLegomenaRatio, double AverageSentenceLength) {
+        System.out.print("1. Avg. word length: " + AverageWodLength + "\n");
+        System.out.print("2. Type-Token Ratio: " + TypeTokenRatio + "\n");
+        System.out.print("3. Hapax Legomena Ratio: " + HapaxLegomenaRatio + "\n");
+        System.out.print("4. Avg. sentence length: " + AverageSentenceLength + "\n");
+    }
+
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Enter file name of first text:");
         String text1FileName = scanner.nextLine();
         String text1FromFile = retrnStringFromFile(text1FileName);
-        System.out.println();
         String[] text1Array = makeArrayWithoutEmptySpace(text1FromFile);
         int countWordsTxt1 = countWordsInText(text1Array);
         double text1AverageWodLength = averageLenghtOfWord(text1Array);
-        System.out.print("1. Avg. word length: " + text1AverageWodLength + "\n");
         int text1TypeTokenRatio = countAllDifferentWords(text1Array);
-        System.out.print("2. Type-Token Ratio: " + text1TypeTokenRatio + "\n");
         int text1HapaxLegomenaRatio = countWordsThatOccurOnlyOnce(text1Array);
-        System.out.print("3. Hapax Legomena Ratio: " + text1HapaxLegomenaRatio + "\n");
         int counterSentencesTxt1 = countNumberOfSentences(text1FromFile);
         double text1AverageSentenceLength = averageNumOfWordInSentences(countWordsTxt1, counterSentencesTxt1);
-        System.out.print("4. Avg. sentence length: " + text1AverageSentenceLength + "\n");
+        printResult(text1AverageWodLength, text1TypeTokenRatio, text1HapaxLegomenaRatio, text1AverageSentenceLength);
 
         System.out.println("Enter file name of first text:");
         String text2FileName = scanner.nextLine();
@@ -139,17 +142,13 @@ public class Main {
         String[] text2Array = makeArrayWithoutEmptySpace(text2FromFile);
         int countWordsTxt2 = countWordsInText(text2Array);
         double text2AverageWodLength = averageLenghtOfWord(text2Array);
-        System.out.print("1. Avg. word length: " + text2AverageWodLength + "\n");
         int text2TypeTokenRatio = countAllDifferentWords(text2Array);
-        System.out.print("2. Type-Token Ratio: " + text2TypeTokenRatio + "\n");
         int text2HapaxLegomenaRatio = countWordsThatOccurOnlyOnce(text2Array);
-        System.out.print("3. Hapax Legomena Ratio: " + text2HapaxLegomenaRatio + "\n");
         int counterSentencesTxt2 = countNumberOfSentences(text2FromFile);
         double text2AverageSentenceLength = averageNumOfWordInSentences(countWordsTxt2, counterSentencesTxt2);
-        System.out.print("4. Avg. sentence length: " + text2AverageSentenceLength + "\n");
+        printResult(text2AverageWodLength, text2TypeTokenRatio, text2HapaxLegomenaRatio, text2AverageSentenceLength);
+
         double plagiarismresult = (abs(text1AverageWodLength - text2AverageWodLength) * 11) + (abs(text1TypeTokenRatio - text2TypeTokenRatio) * 33) + (abs(text1HapaxLegomenaRatio - text2HapaxLegomenaRatio) * 50) + (abs(text1AverageSentenceLength - text2AverageSentenceLength) * 0.4);
         System.out.println("Similarity: " + (abs(text1AverageWodLength - text2AverageWodLength) * 11) + " + " + (abs(text1TypeTokenRatio - text2TypeTokenRatio) * 33) + " + " + (abs(text1HapaxLegomenaRatio - text2HapaxLegomenaRatio) * 50) + " + " + (abs(text1AverageSentenceLength - text2AverageSentenceLength) * 0.4) + " = " + plagiarismresult);
-
-
     }
 }
