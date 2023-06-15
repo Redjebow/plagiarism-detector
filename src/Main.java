@@ -136,7 +136,7 @@ public class Main {
         double text1AverageSentenceLength = averageNumOfWordInSentences(countWordsTxt1, counterSentencesTxt1);
         printResult(text1AverageWodLength, text1TypeTokenRatio, text1HapaxLegomenaRatio, text1AverageSentenceLength);
 
-        System.out.println("Enter file name of first text:");
+        System.out.println("Enter file name of second text:");
         String text2FileName = scanner.nextLine();
         String text2FromFile = retrnStringFromFile(text2FileName);
         String[] text2Array = makeArrayWithoutEmptySpace(text2FromFile);
