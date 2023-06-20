@@ -8,7 +8,7 @@ public class Main {
 
     //метод, който създава масив от подаден текст.
     public static String[] makeArrayWithoutEmptySpace(String text) {
-        String[] wordsArrayOfText = text.split("[!,(?<=\\.)\\s+]");
+        String[] wordsArrayOfText = text.split("[!,(?<=\\.):\\s+]");
         int emptySpace = 0;
         for (int i = 0; i < wordsArrayOfText.length; i++) {
             if ("".equalsIgnoreCase(wordsArrayOfText[i])) {
@@ -48,7 +48,7 @@ public class Main {
 
     //метод, който брои изреченията в даден текст.
     public static int countNumberOfSentences(String text) {
-        String[] arrayFromSentences = text.split("(?<!\\w\\.\\w.)(?<![A-Z][a-z]\\.)(?<=\\.|\\?|!)\\s");
+        String[] arrayFromSentences = text.split("(\\:?<!\\w\\.\\w.)(?<![A-Z][a-z]\\.)(?<=\\.|\\?|!)\\s+");
         int counterForSentences = arrayFromSentences.length;
 
         return counterForSentences;
@@ -107,7 +107,7 @@ public class Main {
             Scanner sc = new Scanner(file, "utf-8");
             while (sc.hasNextLine()) {
                 String line = sc.nextLine();
-                makeStringFromFile.append(line);
+                makeStringFromFile.append(line+" ");
             }
         } catch (Exception e) {
             System.out.println(e);
@@ -116,7 +116,7 @@ public class Main {
         return makeStringFromFile.toString();
     }
 
-    public static void printResult(double AverageWodLength, int TypeTokenRatio, int HapaxLegomenaRatio, double AverageSentenceLength) {
+    public static void printResult(double AverageWodLength, double TypeTokenRatio, double HapaxLegomenaRatio, double AverageSentenceLength) {
         System.out.print("1. Avg. word length: " + AverageWodLength + "\n");
         System.out.print("2. Type-Token Ratio: " + TypeTokenRatio + "\n");
         System.out.print("3. Hapax Legomena Ratio: " + HapaxLegomenaRatio + "\n");
@@ -128,14 +128,17 @@ public class Main {
         System.out.println("Enter file name of first text:");
         String text1FileName = scanner.nextLine();
         String text1FromFile = retrnStringFromFile(text1FileName);
+        System.out.println(text1FromFile);
         String[] text1Array = makeArrayWithoutEmptySpace(text1FromFile);
         int countWordsTxt1 = countWordsInText(text1Array);
+        System.out.println(countWordsTxt1);
         double text1AverageWodLength = averageLenghtOfWord(text1Array);
-        int text1TypeTokenRatio = countAllDifferentWords(text1Array);
-        int text1HapaxLegomenaRatio = countWordsThatOccurOnlyOnce(text1Array);
+        double text1TypeTokenRatio =(double) countAllDifferentWords(text1Array)/countWordsTxt1;
+        double text1HapaxLegomenaRatio =(double) countWordsThatOccurOnlyOnce(text1Array)/countWordsTxt1;
         int counterSentencesTxt1 = countNumberOfSentences(text1FromFile);
         double text1AverageSentenceLength = averageNumOfWordInSentences(countWordsTxt1, counterSentencesTxt1);
         printResult(text1AverageWodLength, text1TypeTokenRatio, text1HapaxLegomenaRatio, text1AverageSentenceLength);
+
 
         System.out.println("Enter file name of second text:");
         String text2FileName = scanner.nextLine();
@@ -143,8 +146,8 @@ public class Main {
         String[] text2Array = makeArrayWithoutEmptySpace(text2FromFile);
         int countWordsTxt2 = countWordsInText(text2Array);
         double text2AverageWodLength = averageLenghtOfWord(text2Array);
-        int text2TypeTokenRatio = countAllDifferentWords(text2Array);
-        int text2HapaxLegomenaRatio = countWordsThatOccurOnlyOnce(text2Array);
+        double text2TypeTokenRatio =(double) countAllDifferentWords(text2Array)/countWordsTxt2;
+        double text2HapaxLegomenaRatio =(double) countWordsThatOccurOnlyOnce(text2Array)/countWordsTxt2;
         int counterSentencesTxt2 = countNumberOfSentences(text2FromFile);
         double text2AverageSentenceLength = averageNumOfWordInSentences(countWordsTxt2, counterSentencesTxt2);
         printResult(text2AverageWodLength, text2TypeTokenRatio, text2HapaxLegomenaRatio, text2AverageSentenceLength);
