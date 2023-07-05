@@ -6,9 +6,9 @@ import static java.lang.Math.abs;
 
 public class Main {
 
-    //метод, който създава масив от подаден текст.
     public static String[] makeArrayWithoutEmptySpace(String text) {
-        String[] wordsArrayOfText = text.split("[!,(?<=\\.):\\s+]");
+        String newtext = text.replaceAll("'", "");
+        String[] wordsArrayOfText = newtext.split("[!,(?<=\\.):\\s+]");
         int emptySpace = 0;
         for (int i = 0; i < wordsArrayOfText.length; i++) {
             if ("".equalsIgnoreCase(wordsArrayOfText[i])) {
@@ -27,15 +27,14 @@ public class Main {
         return wordsArrayOfTextWidaltEmptySpase;
     }
 
-    //метод, който брои думите в даден текст.
+
     public static int countWordsInText(String[] textArrayForCountWords) {
         int counter = textArrayForCountWords.length;
 
         return counter;
     }
 
-    //метод, който връща средната дължина на думите в даден текст
-    public static double averageLenghtOfWord(String[] array) {
+    public static double averageLengthOfWord(String[] array) {
         double countSymbolInWords = 0;
         for (int i = 0; i < array.length; i++) {
             countSymbolInWords += array[i].length();
@@ -45,7 +44,6 @@ public class Main {
         return averageLenghtOnWord;
     }
 
-    //метод, който брои изреченията в даден текст.
     public static int countNumberOfSentences(String text) {
         String[] arrayFromSentences = text.split("(?<!\\w\\.\\w.)(?<![A-Z][a-z]\\.)(?<=\\.|\\?|!)+\\s");
         int counterForSentences = arrayFromSentences.length;
@@ -53,14 +51,12 @@ public class Main {
         return counterForSentences;
     }
 
-    //метод, който връща средният брой на думите в изречение.
     public static double averageNumOfWordInSentences(int counterOfWords, int counterOfSentences) {
         double averageNumOfWordInSentences = (double) counterOfWords / counterOfSentences;
 
         return averageNumOfWordInSentences;
     }
 
-    //метод който брои всички различни думи.
     public static int countAllDifferentWords(String[] text) {
         HashSet<String> counterWord = new HashSet<>();
 
@@ -76,7 +72,6 @@ public class Main {
         return counterForSize;
     }
 
-    //метод който брои думите, които се срещат само по веднъж.
     public static int countWordsThatOccurOnlyOnce(String[] text) {
         int counter = 0;
         boolean checker = false;
@@ -99,7 +94,7 @@ public class Main {
         return counter;
     }
 
-    public static String retrnStringFromFile(String fileName) {
+    public static String returnStringFromFile(String fileName) {
         StringBuilder makeStringFromFile = new StringBuilder();
         try {
             File file = new File(fileName);
@@ -122,33 +117,59 @@ public class Main {
         System.out.print("4. Avg. sentence length: " + AverageSentenceLength + "\n");
     }
 
-    public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Enter file name of first text:");
-        String text1FileName = scanner.nextLine();
-        String text1FromFile = retrnStringFromFile(text1FileName);
-        String[] text1Array = makeArrayWithoutEmptySpace(text1FromFile);
+    public static void printTheWholeResult(String text1, String text2) {
+        System.out.println("Text One result");
+        String[] text1Array = makeArrayWithoutEmptySpace(text1);
         int countWordsTxt1 = countWordsInText(text1Array);
-        double text1AverageWodLength = averageLenghtOfWord(text1Array);
+        double text1AverageWodLength = averageLengthOfWord(text1Array);
         double text1TypeTokenRatio = (double) countAllDifferentWords(text1Array) / countWordsTxt1;
         double text1HapaxLegomenaRatio = (double) countWordsThatOccurOnlyOnce(text1Array) / countWordsTxt1;
-        int counterSentencesTxt1 = countNumberOfSentences(text1FromFile);
+        int counterSentencesTxt1 = countNumberOfSentences(text1);
         double text1AverageSentenceLength = averageNumOfWordInSentences(countWordsTxt1, counterSentencesTxt1);
         printResult(text1AverageWodLength, text1TypeTokenRatio, text1HapaxLegomenaRatio, text1AverageSentenceLength);
-
-        System.out.println("Enter file name of second text:");
-        String text2FileName = scanner.nextLine();
-        String text2FromFile = retrnStringFromFile(text2FileName);
-        String[] text2Array = makeArrayWithoutEmptySpace(text2FromFile);
+        System.out.println("\nText Two result");
+        String[] text2Array = makeArrayWithoutEmptySpace(text2);
         int countWordsTxt2 = countWordsInText(text2Array);
-        double text2AverageWodLength = averageLenghtOfWord(text2Array);
+        double text2AverageWodLength = averageLengthOfWord(text2Array);
         double text2TypeTokenRatio = (double) countAllDifferentWords(text2Array) / countWordsTxt2;
         double text2HapaxLegomenaRatio = (double) countWordsThatOccurOnlyOnce(text2Array) / countWordsTxt2;
-        int counterSentencesTxt2 = countNumberOfSentences(text2FromFile);
+        int counterSentencesTxt2 = countNumberOfSentences(text2);
         double text2AverageSentenceLength = averageNumOfWordInSentences(countWordsTxt2, counterSentencesTxt2);
         printResult(text2AverageWodLength, text2TypeTokenRatio, text2HapaxLegomenaRatio, text2AverageSentenceLength);
 
         double plagiarismresult = (abs(text1AverageWodLength - text2AverageWodLength) * 11) + (abs(text1TypeTokenRatio - text2TypeTokenRatio) * 33) + (abs(text1HapaxLegomenaRatio - text2HapaxLegomenaRatio) * 50) + (abs(text1AverageSentenceLength - text2AverageSentenceLength) * 0.4);
         System.out.println("Similarity: " + (abs(text1AverageWodLength - text2AverageWodLength) * 11) + " + " + (abs(text1TypeTokenRatio - text2TypeTokenRatio) * 33) + " + " + (abs(text1HapaxLegomenaRatio - text2HapaxLegomenaRatio) * 50) + " + " + (abs(text1AverageSentenceLength - text2AverageSentenceLength) * 0.4) + " = " + plagiarismresult);
+    }
+
+    public static void plagiarismDetector() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("To enter text from the keyboard, press 1\nTo enter text from file, press 2");
+        int choice = scanner.nextInt();
+        scanner.nextLine();
+        switch (choice) {
+            case 1:
+                System.out.println("Enter your first text:");
+                String text1FromKeyboard = scanner.nextLine();
+                System.out.println("Enter your second text:");
+                String text2FromKeyboard = scanner.nextLine();
+                printTheWholeResult(text1FromKeyboard, text2FromKeyboard);
+                break;
+            case 2:
+                System.out.println("Enter file name of first text:");
+                String text1FileName = scanner.nextLine();
+                String text1FromFile = returnStringFromFile(text1FileName);
+                System.out.println("Enter file name of second text:");
+                String text2FileName = scanner.nextLine();
+                String text2FromFile = returnStringFromFile(text2FileName);
+                printTheWholeResult(text1FromFile, text2FromFile);
+                break;
+            default:
+                System.out.println("Incorrect choice! Please enter right number. 1 for text from keyboard or 2 for text from file!");
+                plagiarismDetector();
+        }
+    }
+
+    public static void main(String[] args) {
+        plagiarismDetector();
     }
 }
