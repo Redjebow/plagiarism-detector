@@ -144,28 +144,33 @@ public class Main {
     public static void plagiarismDetector() {
         Scanner scanner = new Scanner(System.in);
         System.out.println("To enter text from the keyboard, press 1\nTo enter text from file, press 2");
-        int choice = scanner.nextInt();
-        scanner.nextLine();
-        switch (choice) {
-            case 1:
-                System.out.println("Enter your first text:");
-                String text1FromKeyboard = scanner.nextLine();
-                System.out.println("Enter your second text:");
-                String text2FromKeyboard = scanner.nextLine();
-                printTheWholeResult(text1FromKeyboard, text2FromKeyboard);
-                break;
-            case 2:
-                System.out.println("Enter file name of first text:");
-                String text1FileName = scanner.nextLine();
-                String text1FromFile = returnStringFromFile(text1FileName);
-                System.out.println("Enter file name of second text:");
-                String text2FileName = scanner.nextLine();
-                String text2FromFile = returnStringFromFile(text2FileName);
-                printTheWholeResult(text1FromFile, text2FromFile);
-                break;
-            default:
-                System.out.println("Incorrect choice! Please enter right number. 1 for text from keyboard or 2 for text from file!");
-                plagiarismDetector();
+        try {
+            int choice = scanner.nextInt();
+            scanner.nextLine();
+            switch (choice) {
+                case 1:
+                    System.out.println("Enter your first text:");
+                    String text1FromKeyboard = scanner.nextLine();
+                    System.out.println("Enter your second text:");
+                    String text2FromKeyboard = scanner.nextLine();
+                    printTheWholeResult(text1FromKeyboard, text2FromKeyboard);
+                    break;
+                case 2:
+                    System.out.println("Enter file name of first text:");
+                    String text1FileName = scanner.nextLine();
+                    String text1FromFile = returnStringFromFile(text1FileName);
+                    System.out.println("Enter file name of second text:");
+                    String text2FileName = scanner.nextLine();
+                    String text2FromFile = returnStringFromFile(text2FileName);
+                    printTheWholeResult(text1FromFile, text2FromFile);
+                    break;
+                default:
+                    System.out.println("Incorrect choice! Please enter right number. 1 for text from keyboard or 2 for text from file!");
+                    plagiarismDetector();
+            }
+        } catch (Exception e) {
+            System.out.println("Incorrect choice! Please enter right number. 1 for text from keyboard or 2 for text from file!");
+            plagiarismDetector();
         }
     }
 
