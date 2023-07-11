@@ -110,11 +110,11 @@ public class Main {
         return makeStringFromFile.toString();
     }
 
-    public static void printResult(double AverageWodLength, double TypeTokenRatio, double HapaxLegomenaRatio, double AverageSentenceLength) {
-        System.out.print("1. Avg. word length: " + AverageWodLength + "\n");
-        System.out.print("2. Type-Token Ratio: " + TypeTokenRatio + "\n");
-        System.out.print("3. Hapax Legomena Ratio: " + HapaxLegomenaRatio + "\n");
-        System.out.print("4. Avg. sentence length: " + AverageSentenceLength + "\n");
+    public static void printResult(double averageWodLength, double typeTokenRatio, double hapaxLegomenaRatio, double averageSentenceLength) {
+        System.out.print("1. Avg. word length: " + averageWodLength + "\n");
+        System.out.print("2. Type-Token Ratio: " + typeTokenRatio + "\n");
+        System.out.print("3. Hapax Legomena Ratio: " + hapaxLegomenaRatio + "\n");
+        System.out.print("4. Avg. sentence length: " + averageSentenceLength + "\n");
     }
 
     public static void printTheWholeResult(String text1, String text2) {
